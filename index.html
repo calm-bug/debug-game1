@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Terminal</title>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .terminal {
+            background-color: #111827;
+            border: 2px solid #1f2937;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.1);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+        .header {
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        .screen {
+            min-height: 180px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .hidden {
+            display: none;
+        }
+        input[type="text"] {
+            background: #0b0f19;
+            border: 1px solid #374151;
+            color: #00ff66;
+            padding: 10px;
+            width: calc(100% - 22px);
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #00ff66;
+            color: #0b0f19;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #00cc52;
+        }
+        .success-box {
+            background: rgba(0, 255, 102, 0.05);
+            border-left: 4px solid #00ff66;
+            padding: 15px;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+<div class="terminal">
+    <div class="header">root@marmotte-system:~ # ./debug_script.sh</div>
+    
+    <!-- ÉTAPE 1 : Le petit casse-tête de code -->
+    <div id="step-1" class="screen">
+        <p>> Initialisation du protocole de contournement...</p>
+        <p>> <strong>Casse-tête requis :</strong> Quelle est la valeur de sortie logique de cette condition en binaire ? <br><code>(1010 & 1100) | 0010</code></p>
+        <input type="text" id="answer" placeholder="Entrez le résultat binaire (ex: 1010)...">
+        <br>
+        <button onclick="checkAnswer()">Exécuter le patch</button>
+        <p id="error-msg" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px;"></p>
+    </div>
+
+    <!-- ÉTAPE 2 : L'écran de succès final avec ton message exact -->
+    <div id="step-2" class="screen hidden">
+        <p>Compilation réussie !</p>
+        <div class="success-box">
+            Félicitations, tu as fait tourner ce script inutile avec succès. Si tu es vraiment allé au bout de ton écran, réponds-moi avec le hash exact :<br><br>
+            <strong style="color: #fff; font-size: 1.1rem;">SEGFAULT_MARMOTTE_91</strong>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkAnswer() {
+        const val = document.getElementById('answer').value.trim();
+        // La réponse logique à (1010 & 1100) | 0010 donne 1110
+        if (val === '1110') {
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+        } else {
+            document.getElementById('error-msg').innerText = "> Erreur de segmentation : Mauvais calcul binaire. Retente ta chance.";
+        }
+    }
+</script>
+
+</body>
+</html>
